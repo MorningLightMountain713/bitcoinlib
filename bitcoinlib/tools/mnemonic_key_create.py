@@ -7,8 +7,8 @@
 #    © 2017 November - 1200 Web Development <http://1200wd.com/>
 #
 
-from bitcoinlib.mnemonic import Mnemonic
 from bitcoinlib.keys import HDKey
+from bitcoinlib.mnemonic import Mnemonic
 
 NETWORK = 'testnet'
 KEY_STRENGHT = 128

@@ -20,9 +20,10 @@
 
 import logging
 from datetime import datetime
+
+from bitcoinlib.keys import Address
 from bitcoinlib.services.baseclient import BaseClient, ClientError
 from bitcoinlib.transactions import Transaction
-from bitcoinlib.keys import Address
 
 PROVIDERNAME = 'bitflyer'
 

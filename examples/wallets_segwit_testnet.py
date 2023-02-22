@@ -20,10 +20,10 @@
 # kind of segwit wallet
 #
 
-from bitcoinlib.wallets import *
-from bitcoinlib.keys import HDKey
 from time import sleep
 
+from bitcoinlib.keys import HDKey
+from bitcoinlib.wallets import *
 
 tx_fee = 500
 tx_amount = 1000

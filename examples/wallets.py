@@ -8,9 +8,9 @@
 #
 
 import os
-from bitcoinlib.wallets import *
-from bitcoinlib.mnemonic import Mnemonic
 
+from bitcoinlib.mnemonic import Mnemonic
+from bitcoinlib.wallets import *
 
 #
 # Create Wallets

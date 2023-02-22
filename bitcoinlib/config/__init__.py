@@ -18,7 +18,7 @@
 #
 
 import bitcoinlib.config.config
-import bitcoinlib.config.secp256k1
 import bitcoinlib.config.opcodes
+import bitcoinlib.config.secp256k1
 
 __all__ = ["config", "secp256k1", "opcodes"]

@@ -18,8 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from bitcoinlib.networks import *
 from bitcoinlib.config.config import NETWORK_DENOMINATORS
+from bitcoinlib.networks import *
 
 
 def value_to_satoshi(value, network=None):

@@ -19,11 +19,11 @@
 #
 
 from io import BytesIO
-from bitcoinlib.encoding import *
-from bitcoinlib.main import *
-from bitcoinlib.config.opcodes import *
-from bitcoinlib.keys import Signature, Key
 
+from bitcoinlib.config.opcodes import *
+from bitcoinlib.encoding import *
+from bitcoinlib.keys import Key, Signature
+from bitcoinlib.main import *
 
 _logger = logging.getLogger(__name__)
 

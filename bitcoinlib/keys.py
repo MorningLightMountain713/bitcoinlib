@@ -18,23 +18,23 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import hmac
-import random
 import collections
+import hmac
 import json
+import random
 
-from bitcoinlib.networks import Network, network_by_value, wif_prefix_search
 from bitcoinlib.config.secp256k1 import *
 from bitcoinlib.encoding import *
 from bitcoinlib.mnemonic import Mnemonic
+from bitcoinlib.networks import Network, network_by_value, wif_prefix_search
 
 rfc6979_warning_given = False
 if USE_FASTECDSA:
     from fastecdsa import _ecdsa
-    from fastecdsa.util import RFC6979
-    from fastecdsa.curve import secp256k1 as fastecdsa_secp256k1
     from fastecdsa import keys as fastecdsa_keys
     from fastecdsa import point as fastecdsa_point
+    from fastecdsa.curve import secp256k1 as fastecdsa_secp256k1
+    from fastecdsa.util import RFC6979
 else:
     import ecdsa
 
@@ -251,7 +251,6 @@ def deserialize_address(address, encoding=None, network=None):
 
     :return dict: with information about this address
     """
-
     if encoding is None or encoding == 'base58':
         try:
             address_bytes = change_base(address, 58, 256, 25)
@@ -264,10 +263,10 @@ def deserialize_address(address, encoding=None, network=None):
             if check != checksum and encoding == 'base58':
                 raise BKeyError("Invalid address %s, checksum incorrect" % address)
             elif check == checksum:
-                address_prefix = key_hash[0:1]
+                address_prefix = key_hash[0:2]
                 networks_p2pkh = network_by_value('prefix_address', address_prefix.hex())
                 networks_p2sh = network_by_value('prefix_address_p2sh', address_prefix.hex())
-                public_key_hash = key_hash[1:]
+                public_key_hash = key_hash[2:]
                 script_type = ''
                 witness_type = ''
                 networks = []

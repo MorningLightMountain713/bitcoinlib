@@ -22,14 +22,16 @@ import json
 import random
 import time
 from datetime import timedelta
-from sqlalchemy import func
-from bitcoinlib import services
-from bitcoinlib.networks import Network
-from bitcoinlib.encoding import to_bytes, int_to_varbyteint, varstr, varbyteint_to_int
-from bitcoinlib.db_cache import *
-from bitcoinlib.transactions import Transaction, transaction_update_spents
-from bitcoinlib.blocks import Block
 
+from sqlalchemy import func
+
+from bitcoinlib import services
+from bitcoinlib.blocks import Block
+from bitcoinlib.db_cache import *
+from bitcoinlib.encoding import (int_to_varbyteint, to_bytes,
+                                 varbyteint_to_int, varstr)
+from bitcoinlib.networks import Network
+from bitcoinlib.transactions import Transaction, transaction_update_spents
 
 _logger = logging.getLogger(__name__)
 

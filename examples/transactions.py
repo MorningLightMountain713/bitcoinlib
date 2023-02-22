@@ -8,8 +8,8 @@
 #
 
 from pprint import pprint
-from bitcoinlib.transactions import *
 
+from bitcoinlib.transactions import *
 
 #
 # Create transactions

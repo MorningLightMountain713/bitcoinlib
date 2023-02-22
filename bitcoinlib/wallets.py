@@ -18,21 +18,25 @@
 #
 
 import json
+import pickle
 import random
 from itertools import groupby
 from operator import itemgetter
+
 import numpy as np
-import pickle
+from sqlalchemy import func, or_
+
 from bitcoinlib.db import *
 from bitcoinlib.encoding import *
-from bitcoinlib.keys import Address, BKeyError, HDKey, check_network_and_key, path_expand
+from bitcoinlib.keys import (Address, BKeyError, HDKey, check_network_and_key,
+                             path_expand)
 from bitcoinlib.mnemonic import Mnemonic
 from bitcoinlib.networks import Network
-from bitcoinlib.values import Value, value_to_satoshi
-from bitcoinlib.services.services import Service
-from bitcoinlib.transactions import Input, Output, Transaction, get_unlocking_script_type
 from bitcoinlib.scripts import Script
-from sqlalchemy import func, or_
+from bitcoinlib.services.services import Service
+from bitcoinlib.transactions import (Input, Output, Transaction,
+                                     get_unlocking_script_type)
+from bitcoinlib.values import Value, value_to_satoshi
 
 _logger = logging.getLogger(__name__)
 

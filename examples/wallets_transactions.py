@@ -9,8 +9,8 @@
 
 import os
 from pprint import pprint
-from bitcoinlib.wallets import Wallet, BCL_DATABASE_DIR
 
+from bitcoinlib.wallets import BCL_DATABASE_DIR, Wallet
 
 #
 # Create Wallets

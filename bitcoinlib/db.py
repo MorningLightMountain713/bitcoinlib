@@ -18,13 +18,15 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from sqlalchemy import create_engine
-from sqlalchemy import (Column, Integer, BigInteger, UniqueConstraint, CheckConstraint, String, Boolean, Sequence,
-                        ForeignKey, DateTime, LargeBinary)
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.ext.compiler import compiles
-from sqlalchemy.orm import sessionmaker, relationship, close_all_sessions
 from urllib.parse import urlparse
+
+from sqlalchemy import (BigInteger, Boolean, CheckConstraint, Column, DateTime,
+                        ForeignKey, Integer, LargeBinary, Sequence, String,
+                        UniqueConstraint, create_engine)
+from sqlalchemy.ext.compiler import compiles
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import close_all_sessions, relationship, sessionmaker
+
 from bitcoinlib.main import *
 
 _logger = logging.getLogger(__name__)

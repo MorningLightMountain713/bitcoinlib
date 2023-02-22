@@ -8,8 +8,9 @@
 #
 
 from pprint import pprint
-from bitcoinlib.wallets import wallet_exists, Wallet, wallet_delete_if_exists
+
 from bitcoinlib.keys import HDKey
+from bitcoinlib.wallets import Wallet, wallet_delete_if_exists, wallet_exists
 
 WALLET_NAME = "Multisig_3of5"
 NETWORK = 'testnet'

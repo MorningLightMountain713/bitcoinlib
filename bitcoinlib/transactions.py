@@ -18,17 +18,19 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from datetime import datetime
 import json
 import pickle
 import random
+from datetime import datetime
 from io import BytesIO
-from bitcoinlib.encoding import *
+
 from bitcoinlib.config.opcodes import *
-from bitcoinlib.keys import HDKey, Key, deserialize_address, Address, sign, verify, Signature
+from bitcoinlib.encoding import *
+from bitcoinlib.keys import (Address, HDKey, Key, Signature,
+                             deserialize_address, sign, verify)
 from bitcoinlib.networks import Network
-from bitcoinlib.values import Value, value_to_satoshi
 from bitcoinlib.scripts import Script
+from bitcoinlib.values import Value, value_to_satoshi
 
 _logger = logging.getLogger(__name__)
 

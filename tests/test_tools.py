@@ -8,7 +8,7 @@
 import os
 import sys
 import unittest
-from subprocess import Popen, PIPE
+from subprocess import PIPE, Popen
 
 try:
     import mysql.connector
@@ -19,9 +19,9 @@ try:
 except ImportError:
     pass  # Only necessary when mysql or postgres is used
 
-from bitcoinlib.main import UNITTESTS_FULL_DATABASE_TEST
 from bitcoinlib.db import BCL_DATABASE_DIR
 from bitcoinlib.encoding import normalize_string
+from bitcoinlib.main import UNITTESTS_FULL_DATABASE_TEST
 
 SQLITE_DATABASE_FILE = os.path.join(str(BCL_DATABASE_DIR), 'bitcoinlib.unittest.sqlite')
 DATABASE_NAME = 'bitcoinlib_unittest'

@@ -8,10 +8,11 @@
 #
 
 from pprint import pprint
-from bitcoinlib.transactions import Transaction
-from bitcoinlib.mnemonic import Mnemonic
+
 from bitcoinlib.keys import HDKey
+from bitcoinlib.mnemonic import Mnemonic
 from bitcoinlib.services.services import Service
+from bitcoinlib.transactions import Transaction
 from bitcoinlib.wallets import wallet_create_or_open, wallet_delete_if_exists
 
 network = 'testnet'

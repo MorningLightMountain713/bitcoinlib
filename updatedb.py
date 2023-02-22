@@ -9,17 +9,20 @@
 #    methods of the Wallet class.
 #
 
+import argparse
 import os
 import sys
-import argparse
 from copy import deepcopy
 from datetime import datetime
+from shutil import move
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from shutil import move
-from bitcoinlib.main import DEFAULT_DATABASE, BCL_DATABASE_DIR, BITCOINLIB_VERSION
-from bitcoinlib.db import Base, DbWallet, DbKey, DbKeyMultisigChildren, DbConfig
 
+from bitcoinlib.db import (Base, DbConfig, DbKey, DbKeyMultisigChildren,
+                           DbWallet)
+from bitcoinlib.main import (BCL_DATABASE_DIR, BITCOINLIB_VERSION,
+                             DEFAULT_DATABASE)
 
 print("Database should update automatically when using BitcoinLib. If automatic update fails you can run this script. "
       "!!! After everything is backuped !!!")

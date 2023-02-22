@@ -17,13 +17,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import bitcoinlib.encoding
-import bitcoinlib.mnemonic
-import bitcoinlib.keys
-import bitcoinlib.transactions
-import bitcoinlib.wallets
-import bitcoinlib.tools
 import bitcoinlib.blocks
+import bitcoinlib.encoding
+import bitcoinlib.keys
+import bitcoinlib.mnemonic
+import bitcoinlib.tools
+import bitcoinlib.transactions
 import bitcoinlib.values
+import bitcoinlib.wallets
 
 __all__ = ["keys", "transactions", "wallets", "encoding", "mnemonic", "tools", "blocks", "values"]

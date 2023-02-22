@@ -30,11 +30,11 @@
 # }
 
 import configparser
+
 from bitcoinlib.main import *
 from bitcoinlib.services.authproxy import AuthServiceProxy
 from bitcoinlib.services.baseclient import BaseClient
 from bitcoinlib.transactions import Transaction
-
 
 PROVIDERNAME = 'dashd'
 
@@ -271,7 +271,6 @@ if __name__ == '__main__':
     # 1. Connect by specifying connection URL
     # base_url = 'http://dashrpcuser:passwd@host:9998'
     # bdc = DashdClient(base_url=base_url)
-
     # 2. Or connect using default settings or settings from config file
     bdc = DashdClient()
 

@@ -19,12 +19,12 @@
 #
 
 import configparser
+
 from bitcoinlib.main import *
 from bitcoinlib.networks import Network
 from bitcoinlib.services.authproxy import AuthServiceProxy
 from bitcoinlib.services.baseclient import BaseClient, ClientError
 from bitcoinlib.transactions import Transaction
-
 
 PROVIDERNAME = 'litecoind'
 
@@ -337,7 +337,6 @@ if __name__ == '__main__':
     # 1. Connect by specifying connection URL
     # base_url = 'http://litecoin:passwd@host:9432'
     # bdc = LitecoindClient(base_url=base_url)
-
     # 2. Or connect using default settings or settings from config file
     client = LitecoindClient()
 

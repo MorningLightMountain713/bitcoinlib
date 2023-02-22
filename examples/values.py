@@ -9,7 +9,6 @@
 
 from bitcoinlib.values import Value
 
-
 print("A couple of ways to create a Value class with 10 bitcoins")
 print(Value("10"))
 print(Value("10 BTC"))

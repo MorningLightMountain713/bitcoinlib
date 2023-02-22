@@ -6,6 +6,7 @@
 #
 
 import unittest
+
 from bitcoinlib.networks import *
 
 

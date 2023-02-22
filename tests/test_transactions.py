@@ -19,8 +19,9 @@
 #
 
 import unittest
+
+from bitcoinlib.keys import BKeyError, HDKey
 from bitcoinlib.transactions import *
-from bitcoinlib.keys import HDKey, BKeyError
 from tests.test_custom import CustomAssertions
 
 

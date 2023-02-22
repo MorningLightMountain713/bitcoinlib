@@ -10,9 +10,9 @@
 #
 
 import time
-from bitcoinlib.services.services import Service
 from pprint import pprint
 
+from bitcoinlib.services.services import Service
 
 start_time = time.time()
 

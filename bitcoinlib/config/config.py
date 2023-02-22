@@ -18,13 +18,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
-import locale
-import platform
 import configparser
 import enum
-from pathlib import Path
+import locale
+import os
+import platform
 from datetime import datetime
+from pathlib import Path
 
 # General defaults
 TYPE_TEXT = str

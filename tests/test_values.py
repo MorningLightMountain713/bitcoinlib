@@ -19,6 +19,7 @@
 #
 
 import unittest
+
 from bitcoinlib.values import *
 
 

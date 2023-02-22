@@ -18,8 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from bitcoinlib.encoding import *
 from bitcoinlib.config.secp256k1 import secp256k1_n
+from bitcoinlib.encoding import *
 
 
 class Mnemonic(object):

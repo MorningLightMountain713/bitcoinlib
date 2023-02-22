@@ -8,14 +8,16 @@
 #    © 2019 November - 1200 Web Development <http://1200wd.com/>
 #
 
-import sys
 import argparse
 import ast
+import sys
 from pprint import pprint
-from bitcoinlib.wallets import Wallet, wallets_list, wallet_exists, wallet_delete, WalletError, wallet_empty
-from bitcoinlib.mnemonic import Mnemonic
+
 from bitcoinlib.keys import HDKey
 from bitcoinlib.main import BITCOINLIB_VERSION
+from bitcoinlib.mnemonic import Mnemonic
+from bitcoinlib.wallets import (Wallet, WalletError, wallet_delete,
+                                wallet_empty, wallet_exists, wallets_list)
 
 try:
     import pyqrcode

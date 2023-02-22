@@ -20,15 +20,16 @@
 
 import logging
 from datetime import datetime
+
 try:
     from datetime import timezone
 except Exception:
     pass
+from bitcoinlib.encoding import EncodingError, varstr
+from bitcoinlib.keys import Address, deserialize_address
 from bitcoinlib.main import MAX_TRANSACTIONS
 from bitcoinlib.services.baseclient import BaseClient, ClientError
 from bitcoinlib.transactions import Transaction
-from bitcoinlib.keys import deserialize_address, Address
-from bitcoinlib.encoding import EncodingError, varstr
 
 _logger = logging.getLogger(__name__)
 

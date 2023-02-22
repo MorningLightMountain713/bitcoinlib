@@ -20,10 +20,11 @@
 
 import logging
 from datetime import datetime
+
+from bitcoinlib.encoding import varstr
 from bitcoinlib.main import MAX_TRANSACTIONS
 from bitcoinlib.services.baseclient import BaseClient, ClientError
 from bitcoinlib.transactions import Transaction
-from bitcoinlib.encoding import varstr
 
 PROVIDERNAME = 'mempool'
 # Please note: In the Blockstream API, the first couple of Bitcoin blocks are not correctly indexed,

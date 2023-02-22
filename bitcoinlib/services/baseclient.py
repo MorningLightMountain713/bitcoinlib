@@ -18,12 +18,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import requests
-from urllib.parse import urlencode
 import json
+from urllib.parse import urlencode
+
+import requests
+
+from bitcoinlib.keys import Address
 from bitcoinlib.main import *
 from bitcoinlib.networks import Network
-from bitcoinlib.keys import Address
 
 _logger = logging.getLogger(__name__)
 
@@ -60,44 +62,61 @@ class BaseClient(object):
         except Exception:
             raise ClientError("This Network is not supported by %s Client" % provider)
 
-    def request(self, url_path, variables=None, method='get', secure=True, post_data=''):
-        url_vars = ''
-        url = self.base_url + url_path
+    def request(self, url_path, variables={}, method="get", secure=True, post_data="", base = None):
+        url_vars = ""
+        url = self.base_url + url_path if base is None else base + url_path
         if not url or not self.base_url:
             raise ClientError("No (complete) url provided: %s" % url)
         headers = {
-            'User-Agent': 'BitcoinLib/%s' % BITCOINLIB_VERSION,
-            'Accept': 'application/json',
+            "User-Agent": "bitcoinlib/%s" % BITCOINLIB_VERSION,
+            "Accept": "application/json",
             # 'Content-Type': 'application/json',
             "Referrer": "https://www.github.com/1200wd/bitcoinlib",
         }
         # ToDo: Check use 'headers = None' for some providers?
-        if method == 'get':
-            if variables is None:
-                variables = {}
+        if method == "get":
             if variables:
-                url_vars = '?' + urlencode(variables)
+                url_vars = "?" + urlencode(variables)
             url += url_vars
-            log_url = url if '@' not in url else url.split('@')[1]
+            log_url = url if "@" not in url else url.split("@")[1]
             _logger.info("Url get request %s" % log_url)
-            self.resp = requests.get(url, timeout=self.timeout, verify=secure, headers=headers)
-        elif method == 'post':
-            log_url = url if '@' not in url else url.split('@')[1]
+            self.resp = requests.get(
+                url, timeout=self.timeout, verify=secure, headers=headers
+            )
+        elif method == "post":
+            log_url = url if "@" not in url else url.split("@")[1]
             _logger.info("Url post request %s" % log_url)
-            self.resp = requests.post(url, json=dict(variables), data=post_data, timeout=self.timeout, verify=secure,
-                                      headers=headers)
 
+            try:
+                self.resp = requests.post(
+                    url,
+                    json=dict(variables),
+                    data=post_data,
+                    timeout=self.timeout,
+                    verify=secure,
+                    headers=headers,
+                )
+            except Exception as e:
+                print("exception")
+                print(repr(e))
+                exit(0)
         resp_text = self.resp.text
         if len(resp_text) > 1000:
-            resp_text = self.resp.text[:970] + '... truncated, length %d' % len(resp_text)
+            resp_text = self.resp.text[:970] + "... truncated, length %d" % len(
+                resp_text
+            )
         _logger.debug("Response [%d] %s" % (self.resp.status_code, resp_text))
-        log_url = url if '@' not in url else url.split('@')[1]
+        log_url = url if "@" not in url else url.split("@")[1]
         if self.resp.status_code == 429:
-            raise ClientError("Maximum number of requests reached for %s with url %s, response [%d] %s" %
-                              (self.provider, log_url, self.resp.status_code, resp_text))
-        elif not(self.resp.status_code == 200 or self.resp.status_code == 201):
-            raise ClientError("Error connecting to %s on url %s, response [%d] %s" %
-                              (self.provider, log_url, self.resp.status_code, resp_text))
+            raise ClientError(
+                "Maximum number of requests reached for %s with url %s, response [%d] %s"
+                % (self.provider, log_url, self.resp.status_code, resp_text)
+            )
+        elif not (self.resp.status_code == 200 or self.resp.status_code == 201):
+            raise ClientError(
+                "Error connecting to %s on url %s, response [%d] %s"
+                % (self.provider, log_url, self.resp.status_code, resp_text)
+            )
         try:
             if not self.resp.apparent_encoding and not self.resp.encoding:
                 return self.resp.content

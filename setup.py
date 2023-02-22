@@ -18,10 +18,11 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from setuptools import setup
-from codecs import open
 import os
 import sys
+from codecs import open
+
+from setuptools import setup
 
 here = os.path.abspath(os.path.dirname(__file__))
 version = '0.6.7'

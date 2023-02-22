@@ -20,12 +20,12 @@
 
 import configparser
 from datetime import datetime
+
 from bitcoinlib.main import *
+from bitcoinlib.networks import Network
 from bitcoinlib.services.authproxy import AuthServiceProxy
 from bitcoinlib.services.baseclient import BaseClient, ClientError
 from bitcoinlib.transactions import Transaction
-from bitcoinlib.networks import Network
-
 
 PROVIDERNAME = 'dogecoind'
 
@@ -238,7 +238,6 @@ if __name__ == '__main__':
     # 1. Connect by specifying connection URL
     # base_url = 'http://dogecoinrpc:passwd@host:8332'
     # bdc = BitcoindClient(base_url=base_url)
-
     # 2. Or connect using default settings or settings from config file
     bdc = DogecoindClient()
 

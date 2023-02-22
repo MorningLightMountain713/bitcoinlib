@@ -6,12 +6,13 @@
 #
 
 
-import time
 import random
+import time
+
 from bitcoinlib.keys import *
-from bitcoinlib.wallets import *
-from bitcoinlib.transactions import *
 from bitcoinlib.mnemonic import *
+from bitcoinlib.transactions import *
+from bitcoinlib.wallets import *
 
 try:
     wallet_method = Wallet

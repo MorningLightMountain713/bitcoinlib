@@ -18,10 +18,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, BigInteger, String, Boolean, ForeignKey, DateTime, Enum, LargeBinary
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship, close_all_sessions
 # try:
 #     import mysql.connector
 #     from parameterized import parameterized_class
@@ -34,8 +30,14 @@ from sqlalchemy.orm import sessionmaker, relationship, close_all_sessions
 #     # compat.register()
 #     pass  # Only necessary when mysql or postgres is used
 from urllib.parse import urlparse
-from bitcoinlib.main import *
 
+from sqlalchemy import (BigInteger, Boolean, Column, DateTime, Enum,
+                        ForeignKey, Integer, LargeBinary, String,
+                        create_engine)
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import close_all_sessions, relationship, sessionmaker
+
+from bitcoinlib.main import *
 
 _logger = logging.getLogger(__name__)
 try:

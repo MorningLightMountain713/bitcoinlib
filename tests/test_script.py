@@ -5,8 +5,9 @@
 #    © 2018 May - 1200 Web Development <http://1200wd.com/>
 #
 
-from bitcoinlib.scripts import *
 import unittest
+
+from bitcoinlib.scripts import *
 from tests.test_custom import CustomAssertions
 
 

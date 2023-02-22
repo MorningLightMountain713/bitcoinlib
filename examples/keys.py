@@ -8,8 +8,8 @@
 #
 
 from pprint import pprint
-from bitcoinlib.keys import *
 
+from bitcoinlib.keys import *
 
 # Key Class Examples
 

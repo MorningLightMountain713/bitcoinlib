@@ -18,12 +18,14 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import hashlib
 import math
 import numbers
-from copy import deepcopy
-import hashlib
 import unicodedata
+from copy import deepcopy
+
 from bitcoinlib.main import *
+
 _logger = logging.getLogger(__name__)
 
 

@@ -19,8 +19,8 @@
 #
 
 import json
-from bitcoinlib.encoding import *
 
+from bitcoinlib.encoding import *
 
 _logger = logging.getLogger(__name__)
 
@@ -108,14 +108,14 @@ def network_by_value(field, value):
     :return list: Of network name strings 
     """
     nws = [(nv, NETWORK_DEFINITIONS[nv]['priority'])
-           for nv in NETWORK_DEFINITIONS if NETWORK_DEFINITIONS[nv][field] == value]
+           for nv in NETWORK_DEFINITIONS if NETWORK_DEFINITIONS[nv][field] == value[0:len(NETWORK_DEFINITIONS[nv][field])]]
     if not nws:
         try:
             value = value.upper()
         except TypeError:
             pass
         nws = [(nv, NETWORK_DEFINITIONS[nv]['priority'])
-               for nv in NETWORK_DEFINITIONS if NETWORK_DEFINITIONS[nv][field] == value]
+               for nv in NETWORK_DEFINITIONS if NETWORK_DEFINITIONS[nv][field] == value[0:len(NETWORK_DEFINITIONS[nv][field])]]
     return [nw[0] for nw in sorted(nws, key=lambda x: x[1], reverse=True)]
 
 

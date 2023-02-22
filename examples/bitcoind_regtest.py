@@ -7,8 +7,9 @@
 #    © 2022 Februari - 1200 Web Development <http://1200wd.com/>
 #
 
-from bitcoinlib.services.bitcoind import *
 from pprint import pprint
+
+from bitcoinlib.services.bitcoind import *
 
 bdc = BitcoindClient(base_url='http://rpcuser:pwd@localhost:18444')
 

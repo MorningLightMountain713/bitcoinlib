@@ -7,6 +7,7 @@
 
 import os
 import sys
+
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
 
@@ -142,10 +143,11 @@ texinfo_documents = [
 
 
 def run_apidoc(_):
-    from sphinx.ext.apidoc import main
     import os
-    import sys
     import shutil
+    import sys
+
+    from sphinx.ext.apidoc import main
     sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
     cur_dir = os.path.abspath(os.path.dirname(__file__))
     module = '../bitcoinlib/'

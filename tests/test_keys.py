@@ -18,11 +18,12 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import json
 import os
 import unittest
-import json
-from bitcoinlib.networks import NETWORK_DEFINITIONS
+
 from bitcoinlib.keys import *
+from bitcoinlib.networks import NETWORK_DEFINITIONS
 
 # Number of bulktests for generation of private, public keys and HDKeys. Set to 0 to disable
 # WARNING: Can be slow for a larger number of tests

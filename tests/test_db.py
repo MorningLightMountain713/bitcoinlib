@@ -19,13 +19,14 @@
 #
 
 import unittest
+
 from sqlalchemy.exc import OperationalError
-from tests.db_0_5 import Db as DbInitOld
+
 from bitcoinlib.db import *
 from bitcoinlib.db_cache import *
-from bitcoinlib.wallets import Wallet, WalletError
 from bitcoinlib.services.services import Service
-
+from bitcoinlib.wallets import Wallet, WalletError
+from tests.db_0_5 import Db as DbInitOld
 
 DATABASEFILE_UNITTESTS = os.path.join(str(BCL_DATABASE_DIR), 'bitcoinlib.unittest.sqlite')
 DATABASEFILE_TMP = os.path.join(str(BCL_DATABASE_DIR), 'bitcoinlib.tmp.sqlite')

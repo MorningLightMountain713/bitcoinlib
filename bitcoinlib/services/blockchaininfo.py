@@ -20,10 +20,10 @@
 
 import logging
 from datetime import datetime
+
 from bitcoinlib.main import MAX_TRANSACTIONS
 from bitcoinlib.services.baseclient import BaseClient
 from bitcoinlib.transactions import Transaction
-
 
 PROVIDERNAME = 'blockchaininfo'
 
@@ -186,8 +186,9 @@ class BlockchainInfoClient(BaseClient):
     # def isspent(self, txid, index):
 
     def getinfo(self):
-        import requests
         import json
+
+        import requests
         info = json.loads(requests.get('https://api.blockchain.info/stats', timeout=self.timeout).text)
         unconfirmed = self.compose_request('q', 'unconfirmedcount')
         return {

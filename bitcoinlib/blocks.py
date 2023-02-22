@@ -19,6 +19,7 @@
 #
 
 from io import BytesIO
+
 from bitcoinlib.encoding import *
 from bitcoinlib.networks import Network
 from bitcoinlib.transactions import Transaction

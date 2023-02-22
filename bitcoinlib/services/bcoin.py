@@ -22,7 +22,6 @@ from bitcoinlib.main import *
 from bitcoinlib.services.baseclient import BaseClient, ClientError
 from bitcoinlib.transactions import Transaction, transaction_update_spents
 
-
 PROVIDERNAME = 'bcoin'
 
 _logger = logging.getLogger(__name__)

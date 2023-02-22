@@ -18,11 +18,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import logging
 import hashlib
-from bitcoinlib.services.baseclient import BaseClient
+import logging
+
+from bitcoinlib.encoding import (addr_bech32_to_pubkeyhash, addr_to_pubkeyhash,
+                                 double_sha256, to_bytes)
 from bitcoinlib.main import MAX_TRANSACTIONS
-from bitcoinlib.encoding import addr_to_pubkeyhash, addr_bech32_to_pubkeyhash, double_sha256, to_bytes
+from bitcoinlib.services.baseclient import BaseClient
 
 _logger = logging.getLogger(__name__)
 

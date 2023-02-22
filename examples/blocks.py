@@ -8,9 +8,9 @@
 #
 
 from pprint import pprint
+
 from bitcoinlib.blocks import *
 from bitcoinlib.services.services import *
-
 
 print("=== Create Block object (block 120000) ===")
 # def __init__(self, block_hash, version, prev_block, merkle_root, time, bits, nonce, transactions=None,

@@ -18,12 +18,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import unittest
 import logging
+import unittest
+
 try:
     import mysql.connector
-    from parameterized import parameterized_class
     import psycopg2
+    from parameterized import parameterized_class
     from psycopg2 import sql
     from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 except ImportError as e:
@@ -31,8 +32,8 @@ except ImportError as e:
     # from psycopg2cffi import compat  # Use for PyPy support
     # compat.register()
     pass  # Only necessary when mysql or postgres is used
-from bitcoinlib.services.services import *
 from bitcoinlib.encoding import to_hexstring
+from bitcoinlib.services.services import *
 from tests.test_custom import CustomAssertions
 
 _logger = logging.getLogger(__name__)

@@ -23,8 +23,8 @@ from random import shuffle
 
 try:
     import mysql.connector
-    from parameterized import parameterized_class
     import psycopg2
+    from parameterized import parameterized_class
     from psycopg2 import sql
     from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 except ImportError as e:
@@ -32,11 +32,11 @@ except ImportError as e:
     # from psycopg2cffi import compat  # Use for PyPy support
     # compat.register()
     pass  # Only necessary when mysql or postgres is used
-from bitcoinlib.wallets import *
 from bitcoinlib.encoding import USE_FASTECDSA
+from bitcoinlib.keys import BKeyError, HDKey
 from bitcoinlib.mnemonic import Mnemonic
-from bitcoinlib.keys import HDKey, BKeyError
 from bitcoinlib.values import Value
+from bitcoinlib.wallets import *
 from tests.test_custom import CustomAssertions
 
 DATABASEFILE_UNITTESTS = os.path.join(str(BCL_DATABASE_DIR), 'bitcoinlib.unittest.sqlite')
