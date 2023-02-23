@@ -69,6 +69,6 @@ target/
 .pypirc
 bitcoinlib.iml
 venv/
-
+.venv/
 # Visual studio
 .vs

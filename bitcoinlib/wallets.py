@@ -34,8 +34,7 @@ from bitcoinlib.mnemonic import Mnemonic
 from bitcoinlib.networks import Network
 from bitcoinlib.scripts import Script
 from bitcoinlib.services.services import Service
-from bitcoinlib.transactions import (Input, Output, Transaction,
-                                     get_unlocking_script_type)
+from bitcoinlib.transactions import Input, Output, BaseTransaction, Transaction, FluxTransaction, get_unlocking_script_type
 from bitcoinlib.values import Value, value_to_satoshi
 
 _logger = logging.getLogger(__name__)
@@ -582,13 +581,28 @@ class WalletKey(object):
         return kdict
 
 
-class WalletTransaction(Transaction):
+# class TransactionMeta(type):
+#     def __call__(cls, *args, **kwargs):
+#         hdwallet =kwargs.get("hdwallet")
+#         network = hdwallet.network
+
+#         if network == "flux":
+#             new_cls = type(cls.__name__, (cls, FluxTransaction), {})
+#             print(new_cls)
+#             print(type(new_cls))
+#             return new_cls.__call__(*args, **kwargs)
+#         else:
+#             return Transaction.__call__(*args, **kwargs)
+
+
+class WalletTransaction:
     """
     Used as attribute of Wallet class. Child of Transaction object with extra reference to
     wallet and database object.
 
     All WalletTransaction items are stored in a database
     """
+
 
     def __init__(self, hdwallet, account_id=None, *args, **kwargs):
         """
@@ -603,7 +617,6 @@ class WalletTransaction(Transaction):
         :param kwargs: Keyword arguments for Wallet parent class
         :type kwargs: kwargs
         """
-
         assert isinstance(hdwallet, Wallet)
         self.hdwallet = hdwallet
         self.pushed = False
@@ -615,7 +628,14 @@ class WalletTransaction(Transaction):
         witness_type = 'legacy'
         if hdwallet.witness_type in ['segwit', 'p2sh-segwit']:
             witness_type = 'segwit'
-        Transaction.__init__(self, witness_type=witness_type, *args, **kwargs)
+
+        if self.hdwallet.network == "flux":
+            self.__class__ = type("WalletTransaction", (WalletTransaction, FluxTransaction), {})
+        else:
+            self.__class__ = type("WalletTransaction", (WalletTransaction, Transaction), {})
+
+        super(WalletTransaction, self).__init__(witness_type=witness_type, *args, **kwargs)
+
         addresslist = hdwallet.addresslist()
         self.outgoing_tx = bool([i.address for i in self.inputs if i.address in addresslist])
         self.incoming_tx = bool([o.address for o in self.outputs if o.address in addresslist])
@@ -647,6 +667,7 @@ class WalletTransaction(Transaction):
 
         :return WalletClass:
         """
+        print("VERSIONVERSION", t.version)
         return cls(hdwallet=hdwallet, inputs=t.inputs, outputs=t.outputs, locktime=t.locktime, version=t.version,
                    network=t.network.name, fee=t.fee, fee_per_kb=t.fee_per_kb, size=t.size, txid=t.txid,
                    txhash=t.txhash, date=t.date, confirmations=t.confirmations, block_height=t.block_height,
@@ -830,6 +851,8 @@ class WalletTransaction(Transaction):
 
         :return int: Transaction index number
         """
+
+        print("TXID", self.txid)
 
         sess = self.hdwallet._session
         # If txid is unknown add it to database, else update
@@ -2851,8 +2874,11 @@ class Wallet(object):
                             block_height = None
                             if block_height in utxo and utxo['block_height']:
                                 block_height = utxo['block_height']
+                            version = 1
+                            if network == "flux":
+                                version = 4
                             new_tx = DbTransaction(
-                                wallet_id=self.wallet_id, txid=bytes.fromhex(utxo['txid']), status=status,
+                                wallet_id=self.wallet_id, txid=bytes.fromhex(utxo['txid']), version=version, status=status,
                                 is_complete=False, block_height=block_height, account_id=account_id,
                                 confirmations=utxo['confirmations'], network_name=network)
                             self._session.add(new_tx)
@@ -3442,7 +3468,7 @@ class Wallet(object):
 
     def transaction_create(self, output_arr, input_arr=None, input_key_id=None, account_id=None, network=None, fee=None,
                            min_confirms=1, max_utxos=None, locktime=0, number_of_change_outputs=1,
-                           random_output_order=True):
+                           random_output_order=False, message=""):
         """
         Create new transaction with specified outputs.
 
@@ -3497,9 +3523,12 @@ class Wallet(object):
             raise WalletError("Input array contains %d UTXO's but max_utxos=%d parameter specified" %
                               (len(input_arr), max_utxos))
 
+        srv = Service(network=network, providers=self.providers, cache_uri=self.db_cache_uri)
+        expiry_height = srv.blockcount() + 21
+
         # Create transaction and add outputs
         amount_total_output = 0
-        transaction = WalletTransaction(hdwallet=self, account_id=account_id, network=network, locktime=locktime)
+        transaction = WalletTransaction(hdwallet=self, account_id=account_id, network=network, locktime=locktime, expiry_height=expiry_height)
         transaction.outgoing_tx = True
         for o in output_arr:
             if isinstance(o, Output):
@@ -3513,7 +3542,7 @@ class Wallet(object):
                     addr = addr.key()
                 transaction.add_output(value, addr)
 
-        srv = Service(network=network, providers=self.providers, cache_uri=self.db_cache_uri)
+
         transaction.fee_per_kb = None
         if isinstance(fee, int):
             fee_estimate = fee
@@ -3701,6 +3730,10 @@ class Wallet(object):
             for idx, ck in enumerate(change_keys):
                 on = transaction.add_output(change_amounts[idx], ck.address, encoding=self.encoding)
                 transaction.outputs[on].key_id = ck.key_id
+
+        if message:
+            lock_script = b'j' + varstr(bytes(message, encoding="utf-8"))
+            transaction.add_output(0, lock_script=lock_script)
 
         # Shuffle output order to increase privacy
         if random_output_order:

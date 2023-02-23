@@ -95,6 +95,11 @@ def parse_args():
     group_transaction.add_argument('--sweep', metavar="ADDRESS",
                                    help="Sweep wallet, transfer all funds to specified address")
     group_transaction.add_argument('--fee', '-f', type=int, help="Transaction fee")
+    group_transaction.add_argument(
+        "--message",
+        metavar="MESSAGE",
+        help="Adds a string to the transaction" "outputs",
+    )
     group_transaction.add_argument('--fee-per-kb', type=int,
                                    help="Transaction fee in sathosis (or smallest denominator) per kilobyte")
     group_transaction.add_argument('--push', '-p', action='store_true', help="Push created transaction to the network")
@@ -186,6 +191,8 @@ def create_wallet(wallet_name, args, db_uri):
 
 
 def create_transaction(wlt, send_args, args):
+    message =  args.message if args.message else ""
+
     output_arr = []
     while send_args:
         if len(send_args) == 1:
@@ -196,7 +203,7 @@ def create_transaction(wlt, send_args, args):
             clw_exit("Amount must be a integer value: %s" % send_args[1])
         output_arr.append((send_args[0], amount))
         send_args = send_args[2:]
-    return wlt.transaction_create(output_arr=output_arr, network=args.network, fee=args.fee, min_confirms=0)
+    return wlt.transaction_create(output_arr=output_arr, network=args.network, fee=args.fee, min_confirms=0, message=message)
 
 
 def print_transaction(wt):
